@@ -30,10 +30,10 @@ const Navbar = () => {
                 break;
 
             case 1:
-                navigate('/about')
+                navigate('/contact')
                 break;
             case 2:
-                navigate('/contact')
+                navigate('/about')
                 break;
             case 3:
                 navigate('/products')
@@ -44,6 +44,7 @@ const Navbar = () => {
         setAnchorElNav(null);
     };
     const hadleClick = () => {
+        handleCloseNavMenu()
         navigate('/login')
     }
     const handleOpenSearch = () => {
@@ -94,6 +95,21 @@ const Navbar = () => {
                             }
 
                         </IconButton>
+                        {
+                            Boolean(user) &&
+                            <>
+                                <UserIcon user={user} />
+                                <Button
+                                    sx={{ color: '#fff' }}
+                                    style={{ marginRight: 2 }}
+                                >
+                                    <Badge color="secondary" badgeContent={cartItems && cartItems.length} showZero>
+
+                                        <ShoppingCart onClick={handleNavigateCart} />
+                                    </Badge>
+                                </Button>
+                            </>
+                        }
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -104,6 +120,7 @@ const Navbar = () => {
                         >
                             <MenuIcon />
                         </IconButton>
+
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
@@ -129,7 +146,7 @@ const Navbar = () => {
                                 </MenuItem>
                             ))}
 
-                            <MenuItem onClick={MenuClick} >
+                            <MenuItem onClick={hadleClick} >
                                 <Typography textAlign='center'>Login</Typography>
                             </MenuItem>
                         </Menu>
