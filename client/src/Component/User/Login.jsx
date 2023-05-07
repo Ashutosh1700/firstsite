@@ -1,7 +1,7 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { MailOutline, Face, LockOpen } from "@mui/icons-material"
+import { Link, useNavigate } from "react-router-dom";
+import { VisibilityOff, Visibility } from "@mui/icons-material"
 
 import { useDispatch, useSelector } from "react-redux";
 import './Login.css'
@@ -9,6 +9,31 @@ import Loading from "../Loading/Loading"
 import profileimg from "../../img/avtarimg.jpg"
 import { ClearsErrors, login, register } from "../../Stores/actions/userAction";
 import { alertOption } from "../../Stores/actions/notificationAction";
+import { IconButton, InputAdornment, TextField, styled } from "@mui/material";
+import InputFieldPassword from "./InputFieldPassword";
+
+const CssTextField = styled(TextField, {
+    shouldForwardProp: (props) => props !== "focusColor"
+})((p) => ({
+    // input label when focused
+    "& label.Mui-focused": {
+        color: p.focusColor
+    },
+    // focused color for input with variant='standard'
+    "& .MuiInput-underline:after": {
+        borderBottomColor: p.focusColor
+    },
+    // focused color for input with variant='filled'
+    "& .MuiFilledInput-underline:after": {
+        borderBottomColor: p.focusColor
+    },
+    // focused color for input with variant='outlined'
+    "& .MuiOutlinedInput-root": {
+        "&.Mui-focused fieldset": {
+            borderColor: p.focusColor
+        }
+    }
+}));
 
 const LoginSignUp = () => {
     const dispatch = useDispatch();
@@ -29,10 +54,11 @@ const LoginSignUp = () => {
         name: "",
         email: "",
         password: "",
+        confirmPass: "",
     });
     const navigate = useNavigate()
 
-    const { name, email, password } = user;
+    const { name, email, password, confirmPass } = user;
 
     const [avatar, setAvatar] = useState(profileimg);
     const [avatarPreview, setAvatarPreview] = useState(profileimg);
@@ -46,6 +72,10 @@ const LoginSignUp = () => {
 
     const registerSubmit = (e) => {
         e.preventDefault();
+        if (confirmPass !== password) {
+            dispatch(alertOption({ open: true, severity: 'error', message: "Password and confirm Password must be same." }))
+            return;
+        }
         const myForm = new FormData();
         myForm.set("name", name);
         myForm.set("email", email);
@@ -70,11 +100,12 @@ const LoginSignUp = () => {
             setUser({ ...user, [e.target.name]: e.target.value });
         }
     };
-    const location = useLocation()
+    // const location = useLocation()
 
     useEffect(() => {
         if (error) {
             dispatch(alertOption({ open: true, severity: 'error', message: error }))
+            dispatch(ClearsErrors())
             return;
 
         }
@@ -82,7 +113,7 @@ const LoginSignUp = () => {
             navigate('/account')
         }
 
-    }, [dispatch, error, isAuthenticated]);
+    }, [dispatch, error, isAuthenticated, navigate]);
 
     const switchTabs = (e, tab) => {
         if (tab === "login") {
@@ -101,6 +132,18 @@ const LoginSignUp = () => {
         }
     };
 
+    const [showPassword, setShowPassword] = useState(false)
+    const [showCPassword, setShowCPassword] = useState(false)
+    const handleClick = () => {
+        setShowPassword(!showPassword)
+    }
+    const handleClick2 = () => {
+        setShowCPassword(!showCPassword)
+    }
+    const handleMouseDown = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <Fragment>
             {loading ? (
@@ -118,25 +161,23 @@ const LoginSignUp = () => {
                             </div>
                             <form className="loginForm" ref={loginTab} onSubmit={loginSubmit}>
                                 <div className="loginEmail">
-                                    <MailOutline />
-                                    <input
-                                        type="email"
-                                        placeholder="Email"
-                                        required
+                                    <CssTextField
+                                        focusColor='#ef9273'
+                                        margin='normal'
+                                        variant='standard'
+                                        label="Email"
+                                        type='email'
+                                        placeholder="Enter your Email"
+                                        fullWidth
                                         value={loginEmail}
                                         onChange={(e) => setLoginEmail(e.target.value)}
-                                    />
-                                </div>
-                                <div className="loginPassword">
-                                    <LockOpen />
-                                    <input
-                                        type="password"
-                                        placeholder="Password"
+                                        inputProps={{ minLength: 6 }}
                                         required
-                                        value={loginPassword}
-                                        onChange={(e) => setLoginPassword(e.target.value)}
+                                        width={'100%'}
                                     />
                                 </div>
+                                <InputFieldPassword PassValue={loginPassword} fieldName='Password' PlaceHolder="Enter your password" setPassValue={setLoginPassword} />
+
                                 <Link to="/password/forgot">Forget Password ?</Link>
                                 <input type="submit" value="Login" className="loginBtn" />
                             </form>
@@ -147,36 +188,87 @@ const LoginSignUp = () => {
                                 onSubmit={registerSubmit}
                             >
                                 <div className="signUpName">
-                                    <Face />
-                                    <input
-                                        type="text"
-                                        placeholder="Name"
-                                        required
-                                        name="name"
+                                    <CssTextField
+                                        focusColor='#ef9273'
+                                        margin='normal'
+                                        variant='standard'
+                                        label="Name"
+                                        type='text'
+                                        placeholder="Enter your Name"
+                                        fullWidth
                                         value={name}
+                                        name="name"
                                         onChange={registerDataChange}
+                                        inputProps={{ minLength: 6 }}
+                                        required
+                                        width={'100%'}
                                     />
                                 </div>
                                 <div className="signUpEmail">
-                                    <MailOutline />
-                                    <input
-                                        type="email"
-                                        placeholder="Email"
-                                        required
+                                    <CssTextField
+                                        focusColor='#ef9273'
+                                        margin='normal'
+                                        variant='standard'
+                                        label="Email"
+                                        type='email'
                                         name="email"
+                                        placeholder="Enter your Email"
+                                        fullWidth
                                         value={email}
                                         onChange={registerDataChange}
+                                        inputProps={{ minLength: 6 }}
+                                        required
+                                        width={'100%'}
                                     />
                                 </div>
                                 <div className="signUpPassword">
-                                    <LockOpen />
-                                    <input
-                                        type="password"
-                                        placeholder="Password"
-                                        required
+                                    <CssTextField
+                                        margin='normal'
+                                        focusColor='#ef9273'
+                                        variant='standard'
+                                        placeholder="Enter Password"
+                                        label='password'
+                                        type={showPassword ? 'text' : 'password'}
+                                        fullWidth
                                         name="password"
                                         value={password}
                                         onChange={registerDataChange}
+                                        inputProps={{ minLength: 6 }}
+                                        required
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position='end'>
+                                                    <IconButton onClick={handleClick} onMouseDown={handleMouseDown}>
+                                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
+                                    />
+                                </div>
+                                <div className="signUpPassword">
+                                    <CssTextField
+                                        margin='normal'
+                                        focusColor='#ef9273'
+                                        variant='standard'
+                                        placeholder="Enter Confirm Password"
+                                        label='Confirm Password'
+                                        type={showCPassword ? 'text' : 'password'}
+                                        fullWidth
+                                        name="confirmPass"
+                                        value={confirmPass}
+                                        onChange={registerDataChange}
+                                        inputProps={{ minLength: 6 }}
+                                        required
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position='end'>
+                                                    <IconButton onClick={handleClick2} onMouseDown={handleMouseDown}>
+                                                        {showCPassword ? <VisibilityOff /> : <Visibility />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            )
+                                        }}
                                     />
                                 </div>
 

@@ -2,7 +2,7 @@ import { Box, Rating, Typography, styled } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import "./product.css"
-import { addEllipsis } from '../../utils/ellipse'
+import { addEllipsis, addEllipsis2 } from '../../utils/ellipse'
 
 const SingleProduct = ({ product }) => {
     return (
@@ -17,11 +17,11 @@ const SingleProduct = ({ product }) => {
 
                 <Typography style={{ color: '878787', fontWeight: 600, paddingTop: 20 }}
 
-                >{addEllipsis(product.heading)}</Typography>
+                >{addEllipsis2(product.heading)}</Typography>
 
-                <Box style={{ margin: '0.5vmax 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Box className="Rating-review-box" style={{ margin: '0.5vmax 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Rating name="half-rating-read" value={product.ratings} precision={0.5} readOnly size={window.innerWidth < 600 ? '20' : "medium"} />
-                    <Typography variant='span' margin={'0.5vmax'} >{product.numOfReviews} Reviews</Typography>
+                    <Typography variant='span' margin={'0.5vmax'}  >{product.numOfReviews} Reviews</Typography>
                 </Box>
 
                 <Typography style={{ color: '#ef9273' }} sx={{ fontsize: { xs: '2vmax', md: '1vmax' } }}> ₹ {product.price - (product.discount * product.price) / 100}</Typography>

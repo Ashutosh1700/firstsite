@@ -26,3 +26,11 @@
 .category-link:hover {
     color: #ef9273;
 }
+
+@media screen and (max-width: 600px) {
+    .Filter-box {
+        justify-content: center;
+        margin: -35px 0px 25px 0px;
+    }
+
+}

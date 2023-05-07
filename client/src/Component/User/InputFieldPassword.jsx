@@ -1,8 +1,32 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { IconButton, InputAdornment, TextField } from '@mui/material'
+import { IconButton, InputAdornment, TextField, styled } from '@mui/material'
 import React, { useState } from 'react'
 
-const InputFieldPassword = ({ PassValue, fieldName, id, setPassValue }) => {
+
+const CssTextField = styled(TextField, {
+    shouldForwardProp: (props) => props !== "focusColor"
+})((p) => ({
+    // input label when focused
+    "& label.Mui-focused": {
+        color: p.focusColor
+    },
+    // focused color for input with variant='standard'
+    "& .MuiInput-underline:after": {
+        borderBottomColor: p.focusColor
+    },
+    // focused color for input with variant='filled'
+    "& .MuiFilledInput-underline:after": {
+        borderBottomColor: p.focusColor
+    },
+    // focused color for input with variant='outlined'
+    "& .MuiOutlinedInput-root": {
+        "&.Mui-focused fieldset": {
+            borderColor: p.focusColor
+        }
+    }
+}));
+
+const InputFieldPassword = ({ PassValue, fieldName, PlaceHolder, setPassValue, }) => {
     const [showPassword, setShowPassword] = useState(false)
     const handleClick = () => {
         setShowPassword(!showPassword)
@@ -11,13 +35,15 @@ const InputFieldPassword = ({ PassValue, fieldName, id, setPassValue }) => {
         e.preventDefault();
     }
     return (
-        <TextField
+        <CssTextField
             margin='normal'
+            focusColor='#ef9273'
             variant='standard'
-            id={id}
+            placeholder={PlaceHolder}
             label={fieldName}
             type={showPassword ? 'text' : 'password'}
             fullWidth
+            name='password'
             value={PassValue}
             onChange={(e) => setPassValue(e.target.value)}
             inputProps={{ minLength: 6 }}

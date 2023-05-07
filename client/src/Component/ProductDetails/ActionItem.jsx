@@ -56,7 +56,7 @@ const ActionItem = ({ product, id }) => {
                     <Image src={product.images[0].url} alt="product" style={{ width: '22vmax' }} />
                 }
             </Box>
-            <Box style={{ display: 'flex', padding: 20, }}>
+            <Box style={{ display: 'flex', justifyContent: 'space-between', width: '98%' }}>
                 <StyledButton variant='contained' sx={{ marginRight: { xs: 0, md: '15px' } }} onClick={addtoCartHandler} disabled={product.Stock < 1}
                 >
 

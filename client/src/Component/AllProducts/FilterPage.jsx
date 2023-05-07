@@ -7,7 +7,7 @@ const FilterPage = ({ price, setPrice, categories, setCategory, ratings, setRati
         setPrice(newPrice)
     }
     return (
-        <Box display={'flex'}>
+        <Box className='Filter-box' display={'flex'}>
             <Box sx={{ marginTop: '56px' }}>
                 <Typography fontSize={26} fontWeight={600}> Price Filter</Typography>
                 <Slider

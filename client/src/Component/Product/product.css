@@ -30,14 +30,19 @@
     max-height: 240px;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .productCard {
         margin-top: 10px;
-        width: 200px;
+        width: 150px;
         height: 300px;
     }
 
     .imgStyle {
-        max-height: 170px;
+
+        max-height: 150px;
+    }
+
+    .Rating-review-box {
+        flex-direction: column;
     }
 }
