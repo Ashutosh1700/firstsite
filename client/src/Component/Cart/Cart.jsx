@@ -28,17 +28,6 @@ const ButtonWrapper = styled(Box)(({ theme }) => ({
         padding: '5px',
     }
 }))
-
-
-const StyledButton = styled(Button)`
-    display: flex;
-    margin-left: auto;
-    background-color: #1976d2;
-    color: #fff;
-    padding: 5px;
-    width: 250px; 
-    height: 51px;
-`
 const LeftGrid = styled(Grid)(({ theme }) => ({
     paddingRight: 15,
     [theme.breakpoints.down("md")]: {
@@ -62,7 +51,7 @@ const Cart = () => {
     return (
         <Fragment>
             {
-                cartItems.length == 0 ? <EmptyCart /> :
+                cartItems.length === 0 ? <EmptyCart /> :
                     <GridWrapper container>
                         <LeftGrid item lg={9} md={9} sm={12} xs={12}>
                             <Header style={{ background: '#ffffff' }}>

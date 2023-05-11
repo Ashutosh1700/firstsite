@@ -12,6 +12,10 @@ const fileUpload = require("express-fileupload")
 const cors = require("cors")
 const path = require("path")
 
+const bannerRouters = require("./routes/bannerRouters.js")
+const qureyRouters = require("./routes/queryRouter.js")
+
+
 process.on("uncaughtException", (err) => {
     console.log(`Error: ${err.message}`)
     console.log(`Shutting down the server due to Uncaught Exception`)
@@ -43,6 +47,8 @@ app.use(fileUpload());
 app.use('/api/v1', productRouters)
 app.use('/api/v1', UserRouters)
 app.use('/api/v1', orderRouters)
+app.use('/api/v1', qureyRouters)
+app.use('/api/v1', bannerRouters)
 
 
 app.use(ErroThrow)

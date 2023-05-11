@@ -1,30 +1,35 @@
-import { Box, Rating, Typography, styled } from '@mui/material'
+import { Box, Rating, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import "./product.css"
-import { addEllipsis, addEllipsis2 } from '../../utils/ellipse'
+import "./singleProduct.css"
+import { addEllipsis2 } from '../../utils/ellipse'
 
 const SingleProduct = ({ product }) => {
+    const price = Math.round(product.price - (product.discount * product.price) / 100)
     return (
         <Link to={`/product/${product._id}`} className='productCard'
-            sx={{ marginTop: { xs: '20px', md: '5px' } }}
         >
-            <Box style={{ padding: '15px 20px', width: '90%', marginBottom: '10px', display: 'flex', justifyContent: 'center' }}>
+            <Box className="imageBox">
                 <img src={product.images[0].url} alt={product.heading} className='imgStyle' />
             </Box>
 
             <Box className="styleFont">
 
-                <Typography style={{ color: '878787', fontWeight: 600, paddingTop: 20 }}
+                <Typography className='productName'>{addEllipsis2(product.heading)}</Typography>
 
-                >{addEllipsis2(product.heading)}</Typography>
-
-                <Box className="Rating-review-box" style={{ margin: '0.5vmax 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Rating name="half-rating-read" value={product.ratings} precision={0.5} readOnly size={window.innerWidth < 600 ? '20' : "medium"} />
+                <Box className="Rating-review-box">
+                    <Rating name="half-rating-read" value={product.ratings} precision={0.5} readOnly />
                     <Typography variant='span' margin={'0.5vmax'}  >{product.numOfReviews} Reviews</Typography>
                 </Box>
+                <Box className="price-box" >
+                    <Typography style={{ color: '#ef9273' }} > ₹{price}</Typography>
 
-                <Typography style={{ color: '#ef9273' }} sx={{ fontsize: { xs: '2vmax', md: '1vmax' } }}> ₹ {product.price - (product.discount * product.price) / 100}</Typography>
+                    <Typography style={{ color: '#878787' }} > ₹ <strike>{product.price}</strike></Typography>
+
+                    <Typography variant='span' margin={'0.5vmax'} color={'green'} >{product.discount} %off</Typography>
+                </Box>
+
+
             </Box>
 
         </Link>

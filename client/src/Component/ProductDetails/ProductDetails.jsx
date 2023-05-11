@@ -1,23 +1,11 @@
 
 import { Box, Typography, styled, TableCell, Table, TableBody, TableRow, Rating, Divider, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import './productDetails.css'
-import { LocalOffer as Badge, Reviews } from '@mui/icons-material';
 import './product.css'
-import ReviewCard from './ReviewCard';
 import { useDispatch } from 'react-redux';
 import { newReview } from '../../Stores/actions/productAction';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-const StyledBadge = styled(Badge)`
-    font-size: 15px;
-    margin-top: 10px;
-    color: green;
-`
-
-const Discount = styled(Box)`
-    vertical-align: baseline;
-    margin-bottom: 10px;
-`
 const ColumnText = styled(TableRow)`
     font-size: 14px;
         vertical-align: baseline;

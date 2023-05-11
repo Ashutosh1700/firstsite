@@ -158,12 +158,13 @@ exports.deleteProduct = tryCatch(async (req, res, next) => {
 
 // create procut route
 exports.createProductReview = tryCatch(async (req, res, next) => {
-    const { rating, comment, productId } = req.body;
+    const { rating, comment, productId, img_url } = req.body;
     const review = {
         user: req.user._id,
         name: req.user.name,
         rating: Number(rating),
         comment,
+        img_url,
     };
     const product = await Product.findById(productId);
     const isReviewed = product.reviews.find((rev) => rev.user.toString() === req.user._id.toString())

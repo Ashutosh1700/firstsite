@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react'
 import Loading from '../Loading/Loading';
-import { Box, Divider, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import SingleProduct from '../Product/SingleProduct';
 import './AllProducts.css'
-import CustomPagination from '../pagination/CustomPagination';
 import ProductDummy from '../LoadingPage/ProductsDummy';
+import CustomPagination from "../pagination/CustomPagination"
 
 
 
@@ -28,11 +28,12 @@ const AllProducts = ({ loading, products, count, setCurrentPage, currentPage }) 
                                 ))
                             }
                         </Box>
+
                     </Fragment>
             }
-
-
             <CustomPagination count={count} setCurrentPage={setCurrentPage} currentPage={currentPage} />
+
+
 
         </Fragment>
     )

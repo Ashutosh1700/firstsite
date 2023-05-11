@@ -1,6 +1,5 @@
 import { Box, Typography, styled } from "@mui/material";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
@@ -31,7 +30,8 @@ const TotalBalance = ({ cartItems }) => {
 
     useEffect(() => {
         totalAmount();
-    }, [cartItems])
+        // eslint-disable-next-line
+    }, [cartItems,])
 
     const totalAmount = () => {
         let price = 0, discount = 0;

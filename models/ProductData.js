@@ -127,10 +127,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: [true, "Please Enter the discount"]
     },
-    // offers: {
-    //     type: [String],
-    //     required: [true, "Please Enter the product discount"]
-    // },
+    details: {
+        type: [String],
+        required: [true, "Please Enter the product discount"]
+    },
     images: [
         {
             public_id: {
@@ -176,7 +176,7 @@ const productSchema = new mongoose.Schema({
         {
             user: {
                 type: mongoose.Schema.ObjectId,
-                ref: "User1",
+                ref: "User",
                 required: true,
             },
             name: {
@@ -190,6 +190,11 @@ const productSchema = new mongoose.Schema({
             comment: {
                 type: String,
                 required: true
+            },
+            img_url: {
+                type: String,
+                required: true
+
             }
         }
     ],

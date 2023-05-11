@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from "react-redux"
 import Loading from '../Loading/Loading'
 import { alertOption } from '../../Stores/actions/notificationAction'
 import HomeDummy from '../LoadingPage/HomeDummy'
+import Contact from '../ContactUs/Contact'
+import Services from '../Services/Services'
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -46,6 +48,8 @@ const Home = () => {
                                 <Typography >Our Products</Typography>
                             </Box>
                             <Products products={products} />
+                            <Contact />
+                            <Services />
                         </Box>
                     </>
 

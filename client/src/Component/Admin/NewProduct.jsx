@@ -7,18 +7,19 @@ import { alertOption } from "../../Stores/actions/notificationAction";
 import { NEW_PRODUCT_RESET } from "../../Stores/constants/productContants";
 import Sidebar from "./Sidebar";
 import MetaData from "../metaData/MetaData";
-import { AccountTree, AttachMoney, Description, DescriptionSharp, Discount, Spellcheck, Storage } from "@mui/icons-material";
+import { AccountTree, AttachMoney, Description, Discount, Spellcheck, Storage } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import profileimg from "../../img/avtarimg.jpg"
 
 // import profileimg from "../../img/avtarimg.jpg"
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
+import { Button, Chip, Dialog, DialogActions, DialogContent, DialogTitle, Stack, } from "@mui/material";
 
 const NewProduct = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
     const { loading, error, success } = useSelector((state) => state.newProduct);
+
+    const [open, setOpen] = useState(false)
 
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
@@ -28,8 +29,8 @@ const NewProduct = () => {
     const [Stock, setStock] = useState(0);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
-
-
+    const [offer, setOffer] = useState("")
+    const [details, setDetails] = useState([]);
 
     const categories = [
         "Laptop",
@@ -53,7 +54,7 @@ const NewProduct = () => {
             navigate("/admin/dashboard");
             dispatch({ type: NEW_PRODUCT_RESET });
         }
-    }, [dispatch, error, success]);
+    }, [dispatch, error, success, navigate]);
 
     const createProductSubmitHandler = (e) => {
         e.preventDefault();
@@ -70,6 +71,9 @@ const NewProduct = () => {
         images.forEach((image) => {
             myForm.append("images", image);
         });
+        details.forEach((detail) => {
+            myForm.append("details", detail)
+        })
 
         dispatch(createProduct(myForm));
     };
@@ -92,9 +96,27 @@ const NewProduct = () => {
 
             reader.readAsDataURL(file);
         });
-
-
     };
+    const handleToggle = () => {
+        setOpen(!open)
+    }
+    const Adddescription = () => {
+        setOpen(false)
+    }
+    const handleDelete = (item) => {
+        setDetails(oldValues => {
+            return oldValues.filter(fruit => fruit !== item)
+        })
+    }
+    const handleAdd = () => {
+        details.push(
+            offer
+        )
+        setOffer("")
+    }
+    const handleView = () => {
+        setOpen(true)
+    }
 
     return (
         <Fragment>
@@ -171,6 +193,54 @@ const NewProduct = () => {
                                 onChange={(e) => setStock(e.target.value)}
                             />
                         </div>
+                        <div>
+                            <Button style={{ backgroundColor: '#ef9273' }} onClick={handleToggle}>
+                                Add Description
+                            </Button>
+                            <Button style={{ backgroundColor: '#ef9273' }} onClick={handleView}>
+                                View Description
+                            </Button>
+                        </div>
+                        <Dialog
+                            open={open}
+                            onClose={handleToggle}
+
+                        >
+                            <DialogTitle>Add Description</DialogTitle>
+                            <DialogContent className="submitDialog">
+                                <Stack
+                                    sx={{
+                                        alignItems: 'center',
+                                        "& .MuiTextField-root": { width: '100%', maxWidth: 500, m: 1 }
+                                    }}
+                                >
+                                    {
+
+                                        details && details.map((item) => (
+                                            <Chip label={item} key={item} onDelete={() => handleDelete(item)} />
+                                        ))
+                                    }
+                                </Stack>
+                                <input
+                                    type="text"
+                                    placeholder="Offer"
+                                    required
+                                    onChange={(e) => setOffer(e.target.value)}
+                                />
+                                {
+                                    offer.length > 0 &&
+                                    <Button onClick={handleAdd}>Add</Button>
+                                }
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleToggle} color="secondary">
+                                    Cancel
+                                </Button>
+                                <Button onClick={Adddescription} color="primary">
+                                    Add
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
 
                         <div id="createProductFormFile">
                             <input

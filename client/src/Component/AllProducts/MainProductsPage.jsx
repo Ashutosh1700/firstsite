@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Rating, Slider, Typography } from '@mui/material'
+import { Box, Dialog, Grid, IconButton, ListItemIcon, Menu, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import AllProducts from './AllProducts'
 import { useDispatch, useSelector } from 'react-redux'
@@ -44,11 +44,10 @@ const MainProductsPage = () => {
     return (
         <Box style={{ minHeight: '100vh' }}>
             <Grid container>
-                <Grid item md={2} xs={12} style={{ padding: '25px 0 0 25px', background: '#fff' }}>
+                <Grid item md={2} xs={12} sm={12} style={{ padding: '25px 0 0 25px', background: '#fff' }} className='filterGrid'>
                     <FilterPage {...{ price, setPrice, categories, setCategory, ratings, setRatings }} />
                 </Grid>
                 <Grid item md={10} xs={12}>
-
                     <AllProducts {...{ loading, price, products, count, setCurrentPage, currentPage }} />
                 </Grid>
 
