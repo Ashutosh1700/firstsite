@@ -3,7 +3,7 @@ import { ShoppingCart as Cart, FlashOn as Flash } from '@mui/icons-material';
 import { Box, Button, styled } from '@mui/material'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addItmeTocart } from '../../Stores/actions/cartAction';
+import { addItmeToOrder, addItmeTocart } from '../../Stores/actions/cartAction';
 
 const LeftContainer = styled(Box)(({ theme }) => ({
     minWidth: '40%',
@@ -45,8 +45,8 @@ const ActionItem = ({ product, id }) => {
     }
 
     const buyNow = () => {
-
-        navigate('/payment');
+        dispatch(addItmeToOrder(id, quantity))
+        navigate('/order-shipping');
     }
     return (
         <LeftContainer marginTop={10}>
