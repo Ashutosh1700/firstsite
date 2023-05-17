@@ -12,11 +12,12 @@ const Image = styled('img')(({ theme }) => ({
     borderRadius: '20px',
     [theme.breakpoints.down('md')]: {
         objectFit: 'cover',
-        height: 300
+        height: 280
     },
     [theme.breakpoints.down('sm')]: {
         objectFit: 'cover',
-        height: 180
+        height: 100,
+        borderRadius: '5px',
     }
 }))
 const Carous = styled(Carousel)`

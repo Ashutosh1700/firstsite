@@ -2,7 +2,6 @@ import { Box, Divider, Rating, Slider, Typography } from '@mui/material'
 import React from 'react'
 
 const FilterPage = ({ price, setPrice, categories, setCategory, ratings, setRatings }) => {
-    console.log(price)
 
     const pricHandle = (event, newPrice) => {
         setPrice(newPrice)

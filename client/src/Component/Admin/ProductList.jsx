@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Delete, Edit } from "@mui/icons-material"
 import { Button } from "@mui/base";
 import Sidebar from "./Sidebar"
@@ -11,7 +11,7 @@ import { ClearsErrors, deleteProduct, getAdminProducts } from "../../Stores/acti
 import Metadata from "../metaData/MetaData"
 import { DELETE_PRODUCT_RESET } from "../../Stores/constants/productContants";
 const ProductList = () => {
-    const { id } = useParams()
+    // const { id } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
@@ -44,7 +44,7 @@ const ProductList = () => {
         }
 
         dispatch(getAdminProducts());
-    }, [dispatch, error, isDeleted, deleteError]);
+    }, [dispatch, error, navigate, isDeleted, deleteError]);
 
     const columns = [
         { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
@@ -107,7 +107,7 @@ const ProductList = () => {
                 id: item._id,
                 stock: item.Stock,
                 price: item.price,
-                name: item.name,
+                name: item.heading,
             });
         });
 

@@ -16,6 +16,7 @@
     align-items: center;
 }
 
+
 .profileContainer>div:first-child>h1 {
     color: rgba(0, 0, 0, 0.555);
     font: 500 2.2vmax "Roboto";
@@ -89,6 +90,17 @@
     background-color: rgb(31, 31, 31);
 }
 
+.menu_icon_toggle {
+    display: none;
+    position: static;
+}
+
+.menu_icon_toggle svg {
+    color: tomato;
+    font-size: 50px;
+    padding: 10px;
+}
+
 @media screen and (max-width: 600px) {
     .profileContainer {
         flex-direction: column;
@@ -122,5 +134,19 @@
         font: 400 1.8vmax "Roboto";
         padding: 1vmax;
         margin: 2vmax 0;
+    }
+
+    .menu_icon_box {
+        display: none;
+    }
+
+    .menu_icon_toggle {
+        display: block;
+        position: sticky;
+        top: 0;
+    }
+
+    .details_user {
+        width: 100%;
     }
 }

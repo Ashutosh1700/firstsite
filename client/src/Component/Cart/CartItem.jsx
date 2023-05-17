@@ -11,13 +11,10 @@ const Component = styled(Box)`
     justify-content: space-around;
 `;
 const LeftComponent = styled(Box)`
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
+    
 `;
 const RightBox = styled(Box)`
-    margin-right: 10px;
-    margin-top: 20px;
+    
 `;
 
 
@@ -47,8 +44,8 @@ const CartItem = ({ item, removeItemFromCart }) => {
 
     return (
         <Component>
-            <LeftComponent>
-                <img src={item.image.url} alt="cartItem" style={{ width: '120px' }} />
+            <Box className="leftBox">
+                <img src={item.image.url} alt="cartItem" className="cart_img" />
                 <div className="cartInput">
                     <button style={{ backgroundColor: '#ef9273' }}
                         onClick={() =>
@@ -70,23 +67,26 @@ const CartItem = ({ item, removeItemFromCart }) => {
                         +
                     </button>
                 </div>
-            </LeftComponent>
-            <RightBox>
+            </Box>
+            <Box className="right_box">
                 <Typography>{addEllipsis(item.heading)}</Typography>
-                <Box style={{ marginTop: 10, display: 'flex' }}>
-                    <Box component="span" style={{ fontSize: 20, fontWeight: 600 }}>₹{finalPrice}</Box>&nbsp;&nbsp;&nbsp;
-                    <Box component="span" style={{ color: "#878787" }}><strike>₹{item.price}</strike></Box>&nbsp;&nbsp;&nbsp;
-                    <Box component="span" style={{ color: "#388e3c" }}>{item.discount}% discount</Box>
+                <Box className="price-box_cart" >
+                    <Typography style={{ color: '#ef9273' }} > ₹{finalPrice}</Typography>
+
+                    <Typography style={{ color: '#878787' }} > ₹ <strike>{item.price}</strike></Typography>
+
+                    <Typography variant='span' margin={'0.5vmax'} color={'green'} >{item.discount}% off</Typography>
                 </Box>
+
                 {
                     item.quantity && item.quantity > 1 &&
-                    <Box style={{ display: 'flex', marginTop: '10px', alignItems: 'center' }}>
-                        <Typography fontSize={18} fontWeight={600}>Total Price : </Typography>
+                    <Box style={{ display: 'flex', marginTop: '10px', alignItems: 'center' }} className="quantityAdded">
+                        <Typography fontWeight={600}>Total Price : </Typography>
                         <Typography marginLeft={2}>{item.quantity} X {finalPrice} = {item.quantity * finalPrice}</Typography>
                     </Box>
                 }
-                <Button style={{ backgroundColor: '#ef9273', color: 'white' }} onClick={() => removeItemFromCart(item.product)}>Remove</Button>
-            </RightBox>
+                <Button style={{ backgroundColor: '#ef9273', color: 'white' }} className="remove_btn" onClick={() => removeItemFromCart(item.product)}>Remove</Button>
+            </Box>
         </Component>
     )
 }

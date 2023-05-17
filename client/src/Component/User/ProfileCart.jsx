@@ -5,6 +5,7 @@ import { removeItemsFromCart } from '../../Stores/actions/cartAction';
 import CartItem from '../Cart/CartItem';
 import TotalBalance from '../Cart/TotalBalance';
 import { Box } from '@mui/material';
+import EmptyCart from '../Cart/EmptyCart';
 
 const ProfileCart = () => {
     const { cartItems } = useSelector(state => state.cart);
@@ -18,16 +19,23 @@ const ProfileCart = () => {
     }
     return (
         <Box>
-            <Box>
-                {
-                    cartItems && cartItems.map((item, index) => (
-                        <CartItem item={item} key={index} removeItemFromCart={deleteCartItem} />
-                    ))
-                }
-            </Box>
-            <Box>
-                <TotalBalance cartItems={cartItems} />
-            </Box>
+            {
+                cartItems.length === 0 ? <EmptyCart /> : <>
+                    <Box>
+                        {
+                            cartItems && cartItems.map((item, index) => (
+                                <CartItem item={item} key={index} removeItemFromCart={deleteCartItem} />
+                            ))
+                        }
+                    </Box>
+                    <Box>{
+
+                        cartItems && <TotalBalance cartItems={cartItems} />
+                    }
+                    </Box>
+                </>
+            }
+
         </Box>
     )
 }

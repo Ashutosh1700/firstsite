@@ -194,7 +194,7 @@ const NewProduct = () => {
                             />
                         </div>
                         <div>
-                            <Button style={{ backgroundColor: '#ef9273' }} onClick={handleToggle}>
+                            <Button style={{ backgroundColor: '#ef9273', }} onClick={handleToggle}>
                                 Add Description
                             </Button>
                             <Button style={{ backgroundColor: '#ef9273' }} onClick={handleView}>

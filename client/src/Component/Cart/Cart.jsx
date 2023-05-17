@@ -6,6 +6,7 @@ import TotalBalance from "./TotalBalance";
 import { useNavigate } from 'react-router-dom';
 import { removeItemsFromCart } from "../../Stores/actions/cartAction";
 import { Fragment } from "react";
+import './Cart.css'
 
 const GridWrapper = styled(Grid)(({ theme }) => ({
     padding: '30px 135px',
@@ -62,8 +63,9 @@ const Cart = () => {
                                     <CartItem item={item} key={index} removeItemFromCart={deleteCartItem} />
                                 ))
                             }
-                            <ButtonWrapper>
-                                <Button style={{ display: 'flex', marginLeft: 'auto', backgroundColor: '#1976d2', color: '#fff', padding: '5px', width: '250px', height: '51px' }}
+                            <ButtonWrapper className="placeorderBtn">
+                                <Button
+
                                     onClick={checkOutHandler}
                                 >
                                     Place Order

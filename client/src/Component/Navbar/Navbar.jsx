@@ -53,16 +53,8 @@ const Navbar = () => {
     const handleNavigateCart = () => {
         navigate('/cart')
     }
-
-    const MenuClick = (page) => {
-
-        handleCloseNavMenu()
-
-    }
-
-
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Container maxWidth="xl" style={{ background: '#ef9273', }}
             >
                 <Toolbar disableGutters>
@@ -79,9 +71,9 @@ const Navbar = () => {
 
                     {/* nav item for md screen */}
 
-                    <Box sx={{ display: { xs: 'flex', md: 'none' }, marginLeft: 'auto', alignItems: 'center' }}>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' }, marginLeft: 'auto', alignItems: 'center' }} >
                         {
-                            open && <SearchBar />
+                            open && <SearchBar setOpen={setOpen} />
                         }
                         <IconButton
                             size="large"
@@ -145,10 +137,12 @@ const Navbar = () => {
                                     <Typography textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
-
-                            <MenuItem onClick={hadleClick} >
-                                <Typography textAlign='center'>Login</Typography>
-                            </MenuItem>
+                            {
+                                !Boolean(user) &&
+                                <MenuItem onClick={hadleClick} >
+                                    <Typography textAlign='center'>Login</Typography>
+                                </MenuItem>
+                            }
                         </Menu>
                     </Box>
 

@@ -78,7 +78,7 @@
     margin: auto;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 616px) {
     .dashboard {
         grid-template-columns: 1fr;
     }

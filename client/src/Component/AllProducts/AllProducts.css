@@ -17,6 +17,7 @@
 
 
 
+
 .productHeading {
     margin: 0 auto;
     font-weight: 600;
@@ -54,9 +55,9 @@
 }
 
 .Filter-box .priceFilter .rangeFilter {
-
     font-size: 15px;
 
+    margin-left: 12px;
 }
 
 .Filter-box .priceFilter .rangePrice {
@@ -92,6 +93,19 @@
     border-bottom: 2px solid #ef9273;
 }
 
+
+.filterPage {
+    display: none;
+    color: tomato;
+    top: 50px;
+    position: absolute;
+}
+
+.filterPage svg {
+    color: tomato;
+    font-size: 30px;
+}
+
 @media screen and (max-width: 600px) {
 
     .Filter-box {
@@ -99,6 +113,8 @@
         justify-content: center;
         margin: -35px 0px 25px 0px;
     }
+
+
 
 }
 
@@ -108,6 +124,10 @@
     }
 
     .smallFilter {
+        display: flex;
+    }
+
+    .filterPage {
         display: flex;
     }
 

@@ -28,6 +28,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
     },
     [theme.breakpoints.down('sm')]: {
         width: '48%',
+        fontSize: '12px'
     }
 
 }))
@@ -56,7 +57,7 @@ const ActionItem = ({ product, id }) => {
                     <Image src={product.images[0].url} alt="product" style={{ width: '22vmax' }} />
                 }
             </Box>
-            <Box style={{ display: 'flex', justifyContent: 'space-between', width: '98%' }}>
+            <Box style={{ display: 'flex', justifyContent: 'space-between', width: '98%' }} className="buy_Add_btn">
                 <StyledButton variant='contained' sx={{ marginRight: { xs: 0, md: '15px' } }} onClick={addtoCartHandler} disabled={product.Stock < 1}
                 >
 

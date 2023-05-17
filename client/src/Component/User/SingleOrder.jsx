@@ -3,12 +3,8 @@ import React from 'react'
 import { addEllipsis } from '../../utils/ellipse';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import './singleOrder.css'
 
-const Component = styled(Box)`
-    border-top: 1px solid #f0f0f0;
-    display: flex;
-    background: #ffffff;
-`;
 const LeftComponent = styled(Box)`
     margin: 20px;
     display: flex;
@@ -21,24 +17,16 @@ const RightBox = styled(Box)`
 const SingleOrder = ({ item }) => {
     return (
         <Box style={{ display: 'flex', flexDirection: 'column', border: '2px solid #878787' }}>
-
-
             <Box>
                 {
                     item && item.orderItems.map((data, index) => (
                         <Link to={`/product/${data.product}`} style={{ textDecoration: 'none' }} key={index}>
                             <Box style={{ display: 'flex' }}>
                                 <LeftComponent>
-                                    <img src={data && data.image.public_url} alt="cartItem" style={{ width: '120px' }} />
+                                    <img src={data && data.image.url} alt="cartItem" className='img_width' />
                                 </LeftComponent>
                                 <RightBox>
                                     <Typography style={{ color: '#000' }}>{addEllipsis(data.heading)}</Typography>
-                                    <Box style={{ marginTop: 10, display: 'flex' }}>
-                                        {
-
-                                            <Button style={{ backgroundColor: '#ef9273' }}>Add a Review</Button>
-                                        }
-                                    </Box>
 
                                 </RightBox>
                             </Box>
@@ -47,7 +35,7 @@ const SingleOrder = ({ item }) => {
                     ))
                 }
             </Box>
-            <Box marginLeft={2}>
+            <Box marginLeft={2} className="detail_order">
                 <Box display={'flex'} style={{ alignItems: 'center' }}>
                     <Typography fontWeight={600} fontSize={20}>Status : </Typography>
                     <Typography marginLeft={2}>{item.orderStatus}</Typography>

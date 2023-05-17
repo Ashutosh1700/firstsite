@@ -2,9 +2,10 @@
 import { Box, Typography, styled, TableCell, Table, TableBody, TableRow, Rating, Divider, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import './productDetails.css'
 import './product.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { newReview } from '../../Stores/actions/productAction';
 import { useState } from 'react';
+import { alertOption } from '../../Stores/actions/notificationAction';
 
 const ColumnText = styled(TableRow)`
     font-size: 14px;
@@ -16,25 +17,34 @@ const ColumnText = styled(TableRow)`
 `
 const ProductDetails = ({ product, id }) => {
 
+    const { user } = useSelector((state) => state.user)
+
     const date = new Date(new Date().getTime() + (5 * 24 * 60 * 60 * 1000));
     let shippingcharge = 0;
     const [open, setOpen] = useState(false)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState("");
     const dispatch = useDispatch()
+
+
     const reviewSubmitHandler = () => {
         const myForm = new FormData();
-
         myForm.set("rating", rating);
         myForm.set("comment", comment);
         myForm.set("productId", id);
+        myForm.set("img_url", user.avatar.url)
 
         dispatch(newReview(myForm));
-
         setOpen(false);
     }
     const handleToggle = () => {
-        setOpen(!open)
+        if (!user) {
+            dispatch(alertOption({ open: true, severity: 'error', message: 'Please login to add a review.' }))
+        }
+        else {
+
+            setOpen(!open)
+        }
     }
     return (
         <>{
@@ -54,13 +64,6 @@ const ProductDetails = ({ product, id }) => {
                     <Typography component="span" style={{ color: "#388e3c" }}>{product.discount}% off</Typography>
 
                 </Box>
-                {/* <Discount>
-                    <Typography><StyledBadge />Buy 2 Get 5% Off, Buy 3 Get 10% Off</Typography>
-                    <Typography><StyledBadge />5% Instant Discount + Upto 5% Back on Amazon Pay ICICI Bank Credit Card Trxns. Min purchase value INR 2500</Typography>
-                    <Typography><StyledBadge />10% Instant Discount up to INR 750 on ICICI Bank Debit Card Trxns. Min purchase value INR 2500</Typography>
-                    <Typography><StyledBadge />10% Instant Discount up to INR 1000 on ICICI Bank Credit Card Trxns. Min purchase value INR 2500</Typography>
-                    <Typography><StyledBadge />10% Instant Discount up to INR 1250 on ICICI Bank Credit Card EMI Trxns. Min purchase value INR 2500</Typography>
-                </Discount> */}
                 <Divider />
                 <p style={{ fontSize: 25, paddingTop: 15, color: '#868787' }}>
                     Status:
@@ -84,7 +87,9 @@ const ProductDetails = ({ product, id }) => {
                         </ColumnText>
                     </TableBody>
                 </Table>
+
                 <Button onClick={handleToggle}>Submit a review</Button>
+
 
                 <Dialog
                     open={open}

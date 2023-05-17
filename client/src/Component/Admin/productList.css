@@ -47,7 +47,7 @@
     color: rgb(255, 255, 255);
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 616px) {
     .productListTable div {
         font: 300 4vw "Roboto";
     }
